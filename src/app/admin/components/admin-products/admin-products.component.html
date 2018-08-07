@@ -1,0 +1,31 @@
+<p>
+  <input type="text" #search placeholder="Search product name..." class="form-control" (keyup)="filterProduct(search.value)">
+</p>
+<data-table
+  [items]="items"
+  [itemCount]="itemCount"
+  (reload)="reloardItems($event)">
+  <data-table-column
+    [property]="'title'"
+    [header]="'Title'"
+    [sortable]="true"
+    [resizable]="true">
+  </data-table-column>
+  <data-table-column
+    [property]="'price'"
+    [header]="'Price'"
+    [sortable]="true"
+    [resizable]="true">
+    <ng-template #dataTableCell let-item="item">
+      {{ item.price | currency:'AUD':true }}
+    </ng-template>
+  </data-table-column>
+  <data-table-column
+    [property]="'key'">
+    <ng-template #dataTableCell let-item="item">
+      <a [routerLink]="item.key">
+        Edit
+      </a>
+    </ng-template>
+  </data-table-column>
+</data-table>
