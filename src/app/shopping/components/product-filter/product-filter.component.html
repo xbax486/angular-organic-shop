@@ -1,0 +1,14 @@
+<div class="sticky-top">
+  <div class="list-group" *ngIf="productFilterShow">
+    <a routerLink="/" class="list-group-item list-group-item-action" 
+      [class.active]="!currentCategory">
+      All categories
+    </a>
+    <a routerLink="/" [queryParams]="{ category: category.key }" 
+      class="list-group-item list-group-item-action" 
+      [class.active]="currentCategory === category.key"
+      *ngFor="let category of categories$ | async">
+      {{ category.name }}
+    </a>
+  </div>
+</div>
