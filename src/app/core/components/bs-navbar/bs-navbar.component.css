@@ -1,0 +1,8 @@
+.dropdown-toggle,
+.dropdown-item {
+    cursor: pointer;
+}
+
+.badge {
+    margin-left: 5px;
+}
