@@ -1,0 +1,72 @@
+<div class="order-details">
+  <h1 class="text-center">
+    Order summary
+  </h1>
+  <div class="card">
+    <div class="card-body">
+      <div class="items-details" *ngIf="order.items as items">
+        <h5 class="card-title">
+          Items details
+        </h5>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let item of items" class="list-group-item">
+            {{ item.quantity }} x {{ item.product.title }}
+            <div class="float-right">
+              {{ item.totalPrice | currency:'AUD' }}
+            </div>
+          </li>
+          <li class="list-group-item font-weight-bold">
+            Total price:
+            <div class="float-right">
+              {{ order.totalPrice | currency:'AUD' }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="shipping-details" *ngIf="order.shipping as shipping">
+        <h5 class="card-title">
+          Shipping details
+        </h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Name
+            <div class="float-right">
+              {{ shipping.name }}
+            </div>
+          </li>
+          <li class="list-group-item">
+            Address Line 1
+            <div class="float-right">
+              {{ shipping.addressLine1 }}
+            </div>
+          </li>
+          <li class="list-group-item">
+            Address Line 2
+            <div class="float-right">
+              {{ shipping.addressLine1 }}
+            </div>
+          </li>
+          <li class="list-group-item">
+            City
+            <div class="float-right">
+              {{ shipping.city }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="date-details" *ngIf="order.datePlaced as datePlaced">
+        <h5 class="card-title">
+          Date details
+        </h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Date placed
+            <div class="float-right">
+              {{ datePlaced | date:'dd-MMM-yyyy hh:mm:ss a' }}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
