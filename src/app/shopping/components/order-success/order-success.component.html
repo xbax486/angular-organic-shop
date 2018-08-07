@@ -1,0 +1,8 @@
+<div class="order-success" *ngIf="order">
+  <h3 class="text-center">
+    Your order is placed successfully.
+  </h3>
+  <div class="view-order text-center">
+    <view-order-details [order]="order"></view-order-details>
+  </div>
+</div>
