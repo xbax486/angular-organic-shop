@@ -1,0 +1,63 @@
+<h1>Shopping Cart</h1>
+<div class="row" *ngIf="shoppingCart as cart">
+  <div class="col-10">
+    <div class="shopping-cart">
+      <div class="message">
+        <p>
+          You have {{ cart.totalItemsQuantity }} items in your shopping cart.
+          <button class="btn btn-light btn-sm pull-right" (click)="clearShoppingCart()" *ngIf="cart.totalItems.length">
+            Clear Shopping Cart
+          </button>
+        </p>
+      </div>
+      <table class="table table-hover" *ngIf="cart.totalItemsQuantity > 0">
+        <thead>
+          <tr>
+            <th>
+              Thumbnail
+            </th>
+            <th>
+              Product
+            </th>
+            <th class="table-header-quantity text-center">
+              Quantity
+            </th>
+            <th class="table-header-price text-center">
+              Price
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cart.totalItems">
+            <td class="align-middle">
+              <div [style.backgroundImage]="'url(' + item.imageUrl + ')'" class="thumbnail" alt="Product thumbnail"></div>
+            </td>
+            <td class="align-middle">
+              {{ item.title }}
+            </td>
+            <td class="table-body-quantity text-center align-middle">
+              <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity>
+            </td>
+            <td class="table-body-price text-center align-middle">
+              {{ item.totalPrice | currency:'AUD'}}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th class="check-out align-middle">
+              <a *ngIf="cart.totalItems.length" routerLink="/check-out" class="btn btn-primary">
+                Check out
+              </a>
+            </th>
+            <th></th>
+            <th></th>
+            <th class="text-center align-middle">
+              {{ cart.totalPrice | currency:'AUD'}}
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

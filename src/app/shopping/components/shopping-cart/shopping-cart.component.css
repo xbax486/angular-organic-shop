@@ -1,0 +1,22 @@
+.shopping-cart {
+    border: 1px solid #dee2e6;
+}
+
+.shopping-cart .message {
+    padding: 20px;
+}
+
+.shopping-cart table {
+    margin-bottom: 0;
+}
+
+.shopping-cart .check-out a {
+    width: 100%;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-size: cover;
+}
