@@ -14,10 +14,10 @@ export class AuthService {
   user$: Observable<firebase.User>;
 
   constructor(
-    private angularFireAuth: AngularFireAuth, 
+    private angularFireAuth: AngularFireAuth,
     private activatedRoute: ActivatedRoute,
     private userService: UserService) {
-    
+
     this.user$ = this.angularFireAuth.authState;
   }
 
@@ -25,7 +25,17 @@ export class AuthService {
     let returnUrl = this.activatedRoute.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
-    this.angularFireAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    //this.angularFireAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    let provider = new firebase.auth.GoogleAuthProvider();
+    this.angularFireAuth.auth.signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch(function(error) {
+      console.log('error', error);
+    });
   }
 
   logout() {
@@ -35,7 +45,7 @@ export class AuthService {
   get appUser$(): Observable<AppUser> {
     return this.user$.pipe(
       switchMap(user => {
-        if(user) {
+        if (user) {
           return this.userService.returnUserObservable(user.uid);
         }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { AuthService } from 'shared/services/auth/auth.service';
 import { UserService } from 'shared/services/user/user.service';
 
@@ -12,12 +12,19 @@ export class AdminGuard implements CanActivate {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService) { }
+    private userService: UserService, 
+    private router: Router) { }
 
   canActivate(){
     return this.authService.user$.pipe(
       switchMap(() => this.authService.appUser$),
-      map(appUser => appUser.isAdmin)
+      map(appUser => {
+        if(appUser.isAdmin) 
+          return true;
+        
+        this.router.navigate(['/login']);
+        return false;
+      })
     );
   }
 }

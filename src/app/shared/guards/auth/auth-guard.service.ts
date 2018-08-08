@@ -8,7 +8,9 @@ import { map } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router) { }
 
   canActivate(route, state: RouterStateSnapshot) {
     return this.authService.user$.pipe(
@@ -16,7 +18,7 @@ export class AuthGuard implements CanActivate {
         if (user) {
           return true;
         }
-  
+        
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
       })
